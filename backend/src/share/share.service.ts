@@ -139,13 +139,14 @@ export class ShareService {
     const processDir = async (dir: string, rel = "") => {
       const entries = fs.readdirSync(dir, { withFileTypes: true });
       for (const entry of entries) {
+        if (entry.name.startsWith("__MACOSX")) continue;
         const full = `${dir}/${entry.name}`;
         const relative = rel ? `${rel}/${entry.name}` : entry.name;
         if (entry.isDirectory()) {
           await processDir(full, relative);
         } else {
           const mimeType = mime.lookup(relative);
-          if (!mimeType || !mimeType.startsWith("image/")) continue;
+          if (mimeType !== "image/jpeg") continue;
           const data = fs.readFileSync(full);
           const newFile = await this.prisma.file.create({
             data: {
