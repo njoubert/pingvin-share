@@ -5,11 +5,13 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { JwtService, JwtSignOptions } from "@nestjs/jwt";
-import { Share, User } from "@prisma/client";
+import { Share, User, File as PrismaFile } from "@prisma/client";
 import * as archiver from "archiver";
 import * as argon from "argon2";
 import * as fs from "fs";
 import * as moment from "moment";
+import { execSync } from "child_process";
+import * as mime from "mime-types";
 import { ClamScanService } from "src/clamscan/clamscan.service";
 import { ConfigService } from "src/config/config.service";
 import { EmailService } from "src/email/email.service";
@@ -126,6 +128,42 @@ export class ShareService {
     await archive.finalize();
   }
 
+  private async extractGalleryZip(share: Share & { files: PrismaFile[] }) {
+    if (share.files.length === 0) return;
+    const zipFile = share.files[0];
+    const zipPath = `${SHARE_DIRECTORY}/${share.id}/${zipFile.id}`;
+    const extractDir = `${SHARE_DIRECTORY}/${share.id}/__tmp_extract`;
+    fs.mkdirSync(extractDir, { recursive: true });
+    execSync(`unzip -qq ${zipPath} -d ${extractDir}`);
+
+    const processDir = async (dir: string, rel = "") => {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        const full = `${dir}/${entry.name}`;
+        const relative = rel ? `${rel}/${entry.name}` : entry.name;
+        if (entry.isDirectory()) {
+          await processDir(full, relative);
+        } else {
+          const mimeType = mime.lookup(relative);
+          if (!mimeType || !mimeType.startsWith("image/")) continue;
+          const data = fs.readFileSync(full);
+          const newFile = await this.prisma.file.create({
+            data: {
+              name: relative,
+              size: data.length.toString(),
+              shareId: share.id,
+            },
+          });
+          fs.writeFileSync(`${SHARE_DIRECTORY}/${share.id}/${newFile.id}`, data);
+        }
+      }
+    };
+
+    await processDir(extractDir);
+    fs.rmSync(extractDir, { recursive: true, force: true });
+    await this.fileService.remove(share.id, zipFile.id);
+  }
+
   async complete(id: string, reverseShareToken?: string) {
     const share = await this.prisma.share.findUnique({
       where: { id },
@@ -145,8 +183,14 @@ export class ShareService {
         "You need at least on file in your share to complete it.",
       );
 
+    if (share.isGallery) {
+      await this.extractGalleryZip(share);
+    }
+
+    const filesAfterExtract = await this.prisma.file.count({ where: { shareId: id } });
+
     // Asynchronously create a zip of all files
-    if (share.files.length > 1)
+    if (filesAfterExtract > 1)
       this.createZip(id).then(() =>
         this.prisma.share.update({ where: { id }, data: { isZipReady: true } }),
       );

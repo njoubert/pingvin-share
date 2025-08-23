@@ -1,19 +1,14 @@
-import { Box, Group, Text, Title } from "@mantine/core";
+import { Box, Group, SimpleGrid, Image, Text, Title } from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import { GetServerSidePropsContext } from "next";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { FormattedMessage } from "react-intl";
 import Meta from "../../../components/Meta";
-import DownloadAllButton from "../../../components/share/DownloadAllButton";
-import FileList from "../../../components/share/FileList";
 import showEnterPasswordModal from "../../../components/share/showEnterPasswordModal";
 import showErrorModal from "../../../components/share/showErrorModal";
 import useTranslate from "../../../hooks/useTranslate.hook";
 import shareService from "../../../services/share.service";
 import { Share as ShareType } from "../../../types/share.type";
 import toast from "../../../utils/toast.util";
-import { byteToHumanSizeString } from "../../../utils/fileSize.util";
 
 export function getServerSideProps(context: GetServerSidePropsContext) {
   return {
@@ -21,11 +16,10 @@ export function getServerSideProps(context: GetServerSidePropsContext) {
   };
 }
 
-const Share = ({ shareId }: { shareId: string }) => {
+const Gallery = ({ shareId }: { shareId: string }) => {
   const modals = useModals();
   const [share, setShare] = useState<ShareType>();
   const t = useTranslate();
-  const router = useRouter();
 
   const getShareToken = async (password?: string) => {
     await shareService
@@ -54,12 +48,8 @@ const Share = ({ shareId }: { shareId: string }) => {
   const getFiles = async () => {
     shareService
       .get(shareId)
-      .then((share) => {
-        if (share.isGallery) {
-          router.replace(`/share/${shareId}/gallery`);
-        } else {
-          setShare(share);
-        }
+      .then((s) => {
+        setShare(s);
       })
       .catch((e) => {
         const { error } = e.response.data;
@@ -115,36 +105,22 @@ const Share = ({ shareId }: { shareId: string }) => {
         <Box style={{ maxWidth: "70%" }}>
           <Title order={3}>{share?.name || share?.id}</Title>
           <Text size="sm">{share?.description}</Text>
-          {share?.files?.length > 0 && (
-            <Text size="sm" color="dimmed" mt={5}>
-              <FormattedMessage
-                id="share.fileCount"
-                values={{
-                  count: share?.files?.length || 0,
-                  size: byteToHumanSizeString(
-                    share?.files?.reduce(
-                      (total: number, file: { size: string }) =>
-                        total + parseInt(file.size),
-                      0,
-                    ) || 0,
-                  ),
-                }}
-              />
-            </Text>
-          )}
         </Box>
-
-        {share?.files.length > 1 && <DownloadAllButton shareId={shareId} />}
       </Group>
 
-      <FileList
-        files={share?.files}
-        setShare={setShare}
-        share={share!}
-        isLoading={!share}
-      />
+      <SimpleGrid cols={4} spacing="sm" breakpoints={[{ maxWidth: "sm", cols: 2 }]}>
+        {share?.files?.map((file: any) => (
+          <Image
+            key={file.id}
+            src={`/api/shares/${shareId}/files/${file.id}`}
+            alt={file.name}
+            radius="sm"
+            width="100%"
+          />
+        ))}
+      </SimpleGrid>
     </>
   );
 };
 
-export default Share;
+export default Gallery;
