@@ -288,8 +288,6 @@ export default {
   "share.notify.download-all-preparing": "共有の準備中です。数分後にもう一度お試しください。",
   "share.allFiles": "All files",
   "share.gallery.title": "Gallery",
-  "share.gallery.description":
-    "Here are all the individual jpegs for simple viewing and downloading one at a time! You can also download the entire collection of jpegs or uncompressed tiffs with the links above.",
   "share.modal.file-link": "ファイルリンク",
   "share.table.name": "ファイル名",
   "share.table.size": "サイズ",
