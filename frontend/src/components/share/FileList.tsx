@@ -10,7 +10,7 @@ import {
 import { useClipboard } from "@mantine/hooks";
 import { useModals } from "@mantine/modals";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { TbDownload, TbEye, TbLink } from "react-icons/tb";
+import { TbDownload, TbEye, TbLink, TbShare } from "react-icons/tb";
 import { FormattedMessage } from "react-intl";
 import useConfig from "../../hooks/config.hook";
 import useTranslate from "../../hooks/useTranslate.hook";
@@ -21,6 +21,7 @@ import { byteToHumanSizeString } from "../../utils/fileSize.util";
 import toast from "../../utils/toast.util";
 import TableSortIcon, { TableSort } from "../core/SortIcon";
 import showFilePreviewModal from "./modals/showFilePreviewModal";
+import mime from "mime-types";
 
 const FileList = ({
   files,
@@ -84,6 +85,32 @@ const FileList = ({
     }
   };
 
+  const isImage = (fileName: string) => {
+    const mimeType = (mime.contentType(fileName) as string) || "";
+    return mimeType.startsWith("image/");
+  };
+
+  const shareFile = async (file: FileMetaData) => {
+    const url = `${window.location.origin}/api/shares/${share.id}/files/${file.id}`;
+
+    if (!navigator.share) {
+      await shareService.downloadFile(share.id, file.id);
+      return;
+    }
+
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const mimeType =
+        blob.type || (mime.contentType(file.name) as string) || "";
+      await navigator.share({
+        files: [new File([blob], file.name, { type: mimeType })],
+      });
+    } catch {
+      await shareService.downloadFile(share.id, file.id);
+    }
+  };
+
   useEffect(sortFiles, [sort]);
 
   return (
@@ -131,6 +158,11 @@ const FileList = ({
                           onClick={() => copyFileLink(file)}
                         >
                           <TbLink />
+                        </ActionIcon>
+                      )}
+                      {isImage(file.name) && (
+                        <ActionIcon size={25} onClick={() => shareFile(file)}>
+                          <TbShare />
                         </ActionIcon>
                       )}
                       <ActionIcon
