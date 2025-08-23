@@ -6,11 +6,13 @@ import {
   Button,
   SimpleGrid,
   Image,
+  ActionIcon,
 } from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import { GetServerSidePropsContext } from "next";
 import { useEffect, useMemo, useState } from "react";
 import { FormattedMessage } from "react-intl";
+import { TbShare } from "react-icons/tb";
 import Meta from "../../../components/Meta";
 import DownloadAllButton from "../../../components/share/DownloadAllButton";
 import FileList from "../../../components/share/FileList";
@@ -33,6 +35,27 @@ const Share = ({ shareId }: { shareId: string }) => {
   const modals = useModals();
   const [share, setShare] = useState<ShareType>();
   const t = useTranslate();
+
+  const shareFile = async (file: any) => {
+    const url = `${window.location.origin}/api/shares/${shareId}/files/${file.id}`;
+
+    if (!navigator.share) {
+      await shareService.downloadFile(shareId, file.id);
+      return;
+    }
+
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const mimeType =
+        blob.type || (mime.contentType(file.name) as string) || "";
+      await navigator.share({
+        files: [new File([blob], file.name, { type: mimeType })],
+      });
+    } catch {
+      await shareService.downloadFile(shareId, file.id);
+    }
+  };
 
   const getShareToken = async (password?: string) => {
     await shareService
@@ -115,8 +138,7 @@ const Share = ({ shareId }: { shareId: string }) => {
 
   const gallerySections = useMemo(() => {
     const images = files.filter(
-      (f: any) =>
-        f.name.includes("/") && mime.lookup(f.name) === "image/jpeg",
+      (f: any) => f.name.includes("/") && mime.lookup(f.name) === "image/jpeg",
     );
     const zipMap = new Map<string, any[]>();
     for (const img of images) {
@@ -186,8 +208,7 @@ const Share = ({ shareId }: { shareId: string }) => {
 
       <Group position="apart" mb="lg">
         <Box style={{ maxWidth: "70%" }}>
-          <Title order={3}>{share?.name || shareId}</Title>
-          <Text size="sm">{share?.description}</Text>
+          <Title order={2}>Downloads</Title>
           {rootFiles.length > 0 && (
             <Text size="sm" color="dimmed" mt={5}>
               <FormattedMessage
@@ -211,21 +232,16 @@ const Share = ({ shareId }: { shareId: string }) => {
       </Group>
 
       {rootFiles.length > 0 && (
-        <>
-          <Title order={2} mb="sm">
-            {t("share.allFiles")}
-          </Title>
-          <FileList
-            files={rootFiles}
-            // Sorting is disabled for gallery shares to preserve image grouping
-            setShare={() => {}}
-            share={
-              share ??
-              ({ id: shareId, files: rootFiles, hasPassword: false } as any)
-            }
-            isLoading={!share}
-          />
-        </>
+        <FileList
+          files={rootFiles}
+          // Sorting is disabled for gallery shares to preserve image grouping
+          setShare={() => {}}
+          share={
+            share ??
+            ({ id: shareId, files: rootFiles, hasPassword: false } as any)
+          }
+          isLoading={!share}
+        />
       )}
 
       {gallerySections.length > 0 && (
@@ -233,10 +249,6 @@ const Share = ({ shareId }: { shareId: string }) => {
           <Title order={2} mb="xs">
             {t("share.gallery.title")}
           </Title>
-          <Text size="sm" mb="md">
-            {t("share.gallery.description")}
-          </Text>
-
           {gallerySections.map(({ zip, sections }) => (
             <Box key={zip.id} mt="xl">
               <Group position="apart" mb="sm">
@@ -269,20 +281,33 @@ const Share = ({ shareId }: { shareId: string }) => {
                       ]}
                     >
                       {section.files.map((file: any) => (
-                        <a
-                          key={file.id}
-                          href={`/api/shares/${shareId}/files/${file.id}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          download={file.name}
-                        >
-                          <Image
-                            src={`/api/shares/${shareId}/files/${file.id}`}
-                            alt={file.name}
-                            radius="sm"
-                            width="100%"
-                          />
-                        </a>
+                        <Box key={file.id} sx={{ position: "relative" }}>
+                          <a
+                            href={`/api/shares/${shareId}/files/${file.id}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            download={file.name}
+                          >
+                            <Image
+                              src={`/api/shares/${shareId}/files/${file.id}`}
+                              alt={file.name}
+                              radius="sm"
+                              width="100%"
+                            />
+                          </a>
+                          <ActionIcon
+                            variant="filled"
+                            size="lg"
+                            radius="xl"
+                            sx={{ position: "absolute", top: 8, right: 8 }}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              shareFile(file);
+                            }}
+                          >
+                            <TbShare />
+                          </ActionIcon>
+                        </Box>
                       ))}
                     </SimpleGrid>
                   </Box>

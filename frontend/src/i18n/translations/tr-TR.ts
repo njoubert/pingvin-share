@@ -288,8 +288,6 @@ export default {
   "share.notify.download-all-preparing": "Paylaşım hazırlanıyor. Lütfen birkaç dakika içinde tekrar deneyin.",
   "share.allFiles": "All files",
   "share.gallery.title": "Gallery",
-  "share.gallery.description":
-    "Here are all the individual jpegs for simple viewing and downloading one at a time! You can also download the entire collection of jpegs or uncompressed tiffs with the links above.",
   "share.modal.file-link": "Dosya bağlantısı",
   "share.table.name": "İsim",
   "share.table.size": "Boyut",
