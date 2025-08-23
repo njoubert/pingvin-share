@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "必须至多为 {max}",
   "common.error.exact-length": "必须为 {length} 个字符",
   "common.error.invalid-number": "必须为数字",
-  "common.error.field-required": "必填项"
+  "common.error.field-required": "必填项",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };

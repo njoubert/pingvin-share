@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "Must be at most {max}",
   "common.error.exact-length": "Dolžina mora biti točno {length} znakov",
   "common.error.invalid-number": "Mora biti številka",
-  "common.error.field-required": "To polje je obvezno"
+  "common.error.field-required": "To polje je obvezno",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };

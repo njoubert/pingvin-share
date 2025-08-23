@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "Must be at most {max}",
   "common.error.exact-length": "Πρέπει να αποτελείται ακριβώς από {length} χαρακτήρες",
   "common.error.invalid-number": "Πρέπει να είναι αριθμός",
-  "common.error.field-required": "Αυτό το πεδίο είναι υποχρεωτικό"
+  "common.error.field-required": "Αυτό το πεδίο είναι υποχρεωτικό",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };

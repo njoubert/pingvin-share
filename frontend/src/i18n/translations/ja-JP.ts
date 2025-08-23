@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "最大で{max} である必要があります",
   "common.error.exact-length": "{length} 文字である必要があります",
   "common.error.invalid-number": "数字でなければなりません",
-  "common.error.field-required": "これは必須項目です"
+  "common.error.field-required": "これは必須項目です",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };

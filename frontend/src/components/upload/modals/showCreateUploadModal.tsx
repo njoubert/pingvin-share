@@ -43,6 +43,7 @@ const showCreateUploadModal = (
     maxExpiration: Timespan;
     shareIdLength: number;
     simplified: boolean;
+    galleryEnabledByDefault: boolean;
   },
   files: FileUpload[],
   uploadCallback: (createShare: CreateShare, files: FileUpload[]) => void,
@@ -115,6 +116,7 @@ const CreateUploadModalBody = ({
     enableEmailRecepients: boolean;
     maxExpiration: Timespan;
     shareIdLength: number;
+    galleryEnabledByDefault: boolean;
   };
 }) => {
   const modals = useModals();
@@ -158,7 +160,7 @@ const CreateUploadModalBody = ({
       password: undefined,
       maxViews: undefined,
       description: undefined,
-      isGallery: false,
+      isGallery: options.galleryEnabledByDefault,
       expiration_num: 1,
       expiration_unit: "-days",
       never_expires: false,
@@ -491,6 +493,7 @@ const SimplifiedCreateUploadModalModal = ({
     enableEmailRecepients: boolean;
     maxExpiration: Timespan;
     shareIdLength: number;
+    galleryEnabledByDefault: boolean;
   };
 }) => {
   const modals = useModals();
@@ -511,7 +514,7 @@ const SimplifiedCreateUploadModalModal = ({
     initialValues: {
       name: undefined,
       description: undefined,
-      isGallery: false,
+      isGallery: options.galleryEnabledByDefault,
     },
     validate: yupResolver(validationSchema),
   });

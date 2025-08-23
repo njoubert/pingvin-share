@@ -76,6 +76,13 @@ export const configVariables = {
       secret: false,
     },
   },
+  gallery: {
+    enableByDefault: {
+      type: "boolean",
+      defaultValue: "true",
+      secret: false,
+    },
+  },
   cache: {
     "redis-enabled": {
       type: "boolean",

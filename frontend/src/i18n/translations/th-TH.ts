@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "Must be at most {max}",
   "common.error.exact-length": "ต้องมีความยาว {length} ตัวอักษร",
   "common.error.invalid-number": "ต้องเป็นตัวเลข",
-  "common.error.field-required": "ต้องกรอกข้อมูลนี้"
+  "common.error.field-required": "ต้องกรอกข้อมูลนี้",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };
