@@ -96,6 +96,7 @@ model Share {
   recipients ShareRecipient[]
   files      File[]
   storageProvider String @default("LOCAL")
+  isGallery Boolean @default(false)
 }
 
 model ReverseShare {

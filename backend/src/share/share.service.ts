@@ -5,11 +5,13 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { JwtService, JwtSignOptions } from "@nestjs/jwt";
-import { Share, User } from "@prisma/client";
+import { Share, User, File as PrismaFile } from "@prisma/client";
 import * as archiver from "archiver";
 import * as argon from "argon2";
 import * as fs from "fs";
 import * as moment from "moment";
+import { execSync } from "child_process";
+import * as mime from "mime-types";
 import { ClamScanService } from "src/clamscan/clamscan.service";
 import { ConfigService } from "src/config/config.service";
 import { EmailService } from "src/email/email.service";
@@ -105,12 +107,19 @@ export class ShareService {
     return shareTuple;
   }
 
-  async createZip(shareId: string) {
+  async createZip(shareId: string, includeGalleryImages = true) {
     if (this.config.get("s3.enabled")) return;
 
     const path = `${SHARE_DIRECTORY}/${shareId}`;
 
-    const files = await this.prisma.file.findMany({ where: { shareId } });
+    const files = await this.prisma.file.findMany({
+      where: {
+        shareId,
+        ...(includeGalleryImages
+          ? {}
+          : { NOT: { name: { contains: "/" } } }),
+      },
+    });
     const archive = archiver("zip", {
       zlib: { level: this.config.get("share.zipCompressionLevel") },
     });
@@ -124,6 +133,46 @@ export class ShareService {
 
     archive.pipe(writeStream);
     await archive.finalize();
+  }
+
+  private async extractGalleryZips(share: Share & { files: PrismaFile[] }) {
+    const zipFiles = share.files.filter((f) => f.name.endsWith(".zip"));
+    for (const zipFile of zipFiles) {
+      const zipPath = `${SHARE_DIRECTORY}/${share.id}/${zipFile.id}`;
+      const extractDir = `${SHARE_DIRECTORY}/${share.id}/__tmp_extract_${zipFile.id}`;
+      fs.mkdirSync(extractDir, { recursive: true });
+      execSync(`unzip -qq ${zipPath} -d ${extractDir}`);
+
+      const processDir = async (dir: string, rel = "") => {
+        const entries = fs.readdirSync(dir, { withFileTypes: true });
+        for (const entry of entries) {
+          if (entry.name.startsWith("__MACOSX")) continue;
+          const full = `${dir}/${entry.name}`;
+          const relative = rel ? `${rel}/${entry.name}` : entry.name;
+          if (entry.isDirectory()) {
+            await processDir(full, relative);
+          } else {
+            const mimeType = mime.lookup(relative);
+            if (mimeType !== "image/jpeg") continue;
+            const data = fs.readFileSync(full);
+            const newFile = await this.prisma.file.create({
+              data: {
+                name: `${zipFile.name}/${relative}`,
+                size: data.length.toString(),
+                shareId: share.id,
+              },
+            });
+            fs.writeFileSync(
+              `${SHARE_DIRECTORY}/${share.id}/${newFile.id}`,
+              data,
+            );
+          }
+        }
+      };
+
+      await processDir(extractDir);
+      fs.rmSync(extractDir, { recursive: true, force: true });
+    }
   }
 
   async complete(id: string, reverseShareToken?: string) {
@@ -145,11 +194,19 @@ export class ShareService {
         "You need at least on file in your share to complete it.",
       );
 
-    // Asynchronously create a zip of all files
-    if (share.files.length > 1)
-      this.createZip(id).then(() =>
+    if (share.isGallery) {
+      await this.extractGalleryZips(share);
+    }
+
+    const originalFilesCount = await this.prisma.file.count({
+      where: { shareId: id, NOT: { name: { contains: "/" } } },
+    });
+
+    if (originalFilesCount > 1) {
+      this.createZip(id, false).then(() =>
         this.prisma.share.update({ where: { id }, data: { isZipReady: true } }),
       );
+    }
 
     // Send email for each recipient
     for (const recipient of share.recipients) {

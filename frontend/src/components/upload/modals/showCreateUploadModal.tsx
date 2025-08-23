@@ -147,6 +147,7 @@ const CreateUploadModalBody = ({
       .number()
       .transform((value) => value || undefined)
       .min(1),
+    isGallery: yup.boolean(),
   });
 
   const form = useForm({
@@ -157,6 +158,7 @@ const CreateUploadModalBody = ({
       password: undefined,
       maxViews: undefined,
       description: undefined,
+      isGallery: false,
       expiration_num: 1,
       expiration_unit: "-days",
       never_expires: false,
@@ -208,6 +210,7 @@ const CreateUploadModalBody = ({
           expiration: expirationString,
           recipients: values.recipients,
           description: values.description,
+          isGallery: values.isGallery,
           security: {
             password: values.password || undefined,
             maxViews: values.maxViews || undefined,
@@ -354,6 +357,10 @@ const CreateUploadModalBody = ({
               </Text>
             </>
           )}
+          <Checkbox
+            label={t("upload.modal.gallery")}
+            {...form.getInputProps("isGallery", { type: "checkbox" })}
+          />
           <Accordion>
             <Accordion.Item value="description" sx={{ borderBottom: "none" }}>
               <Accordion.Control>
@@ -497,12 +504,14 @@ const SimplifiedCreateUploadModalModal = ({
       .transform((value) => value || undefined)
       .min(3, t("common.error.too-short", { length: 3 }))
       .max(30, t("common.error.too-long", { length: 30 })),
+    isGallery: yup.boolean(),
   });
 
   const form = useForm({
     initialValues: {
       name: undefined,
       description: undefined,
+      isGallery: false,
     },
     validate: yupResolver(validationSchema),
   });
@@ -526,6 +535,7 @@ const SimplifiedCreateUploadModalModal = ({
         expiration: "never",
         recipients: [],
         description: values.description,
+        isGallery: values.isGallery,
         security: {
           password: undefined,
           maxViews: undefined,
@@ -567,6 +577,10 @@ const SimplifiedCreateUploadModalModal = ({
               {...form.getInputProps("description")}
             />
           </Stack>
+          <Checkbox
+            label={t("upload.modal.gallery")}
+            {...form.getInputProps("isGallery", { type: "checkbox" })}
+          />
           <Button type="submit" data-autofocus>
             <FormattedMessage id="common.button.share" />
           </Button>

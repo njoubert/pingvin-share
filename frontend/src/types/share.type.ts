@@ -9,6 +9,7 @@ export type Share = {
   expiration: Date;
   size: number;
   hasPassword: boolean;
+  isGallery: boolean;
 };
 
 export type CompletedShare = Share & {
@@ -27,6 +28,7 @@ export type CreateShare = {
   recipients: string[];
   expiration: string;
   security: ShareSecurity;
+  isGallery?: boolean;
 };
 
 export type ShareMetaData = {

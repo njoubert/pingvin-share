@@ -3,6 +3,7 @@ import {
   IsEmail,
   IsOptional,
   IsString,
+  IsBoolean,
   Length,
   Matches,
   MaxLength,
@@ -35,4 +36,8 @@ export class CreateShareDTO {
   @ValidateNested()
   @Type(() => ShareSecurityDTO)
   security: ShareSecurityDTO;
+
+  @IsOptional()
+  @IsBoolean()
+  isGallery?: boolean;
 }

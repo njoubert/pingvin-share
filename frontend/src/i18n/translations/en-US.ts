@@ -325,6 +325,7 @@ export default {
 
   "upload.modal.link.label": "Link",
   "upload.modal.expires.label": "Expiration",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Minute",
   "upload.modal.expires.minute-plural": "Minutes",
   "upload.modal.expires.hour-singular": "Hour",
@@ -385,6 +386,7 @@ export default {
   "share.modal.password": "Password",
   "share.modal.error.invalid-password": "Invalid password",
 
+  "share.button.download": "Download",
   "share.button.download-all": "Download all",
   "share.notify.download-all-preparing":
     "The share is being prepared. Please try again in a few minutes.",
