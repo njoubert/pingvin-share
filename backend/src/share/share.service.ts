@@ -161,7 +161,7 @@ export class ShareService {
 
     await processDir(extractDir);
     fs.rmSync(extractDir, { recursive: true, force: true });
-    await this.fileService.remove(share.id, zipFile.id);
+    fs.linkSync(zipPath, `${SHARE_DIRECTORY}/${share.id}/archive.zip`);
   }
 
   async complete(id: string, reverseShareToken?: string) {
@@ -187,13 +187,21 @@ export class ShareService {
       await this.extractGalleryZip(share);
     }
 
-    const filesAfterExtract = await this.prisma.file.count({ where: { shareId: id } });
+    const filesAfterExtract = await this.prisma.file.count({
+      where: { shareId: id },
+    });
 
-    // Asynchronously create a zip of all files
-    if (filesAfterExtract > 1)
+    if (share.isGallery) {
+      await this.prisma.share.update({
+        where: { id },
+        data: { isZipReady: true },
+      });
+    } else if (filesAfterExtract > 1) {
+      // Asynchronously create a zip of all files
       this.createZip(id).then(() =>
         this.prisma.share.update({ where: { id }, data: { isZipReady: true } }),
       );
+    }
 
     // Send email for each recipient
     for (const recipient of share.recipients) {

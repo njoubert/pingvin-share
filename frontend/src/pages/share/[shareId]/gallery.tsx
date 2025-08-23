@@ -1,4 +1,12 @@
-import { Box, Group, SimpleGrid, Image, Text, Title } from "@mantine/core";
+import {
+  Box,
+  Group,
+  SimpleGrid,
+  Image,
+  Text,
+  Title,
+  Button,
+} from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import { GetServerSidePropsContext } from "next";
 import { useEffect, useState } from "react";
@@ -9,6 +17,8 @@ import useTranslate from "../../../hooks/useTranslate.hook";
 import shareService from "../../../services/share.service";
 import { Share as ShareType } from "../../../types/share.type";
 import toast from "../../../utils/toast.util";
+import { FormattedMessage } from "react-intl";
+import mime from "mime-types";
 
 export function getServerSideProps(context: GetServerSidePropsContext) {
   return {
@@ -94,6 +104,11 @@ const Gallery = ({ shareId }: { shareId: string }) => {
     getFiles();
   }, []);
 
+  const images = share?.files?.filter((file: any) =>
+    (mime.lookup(file.name) || "").startsWith("image/")
+  );
+  const zipFile = share?.files?.find((f: any) => f.name.endsWith(".zip"));
+
   return (
     <>
       <Meta
@@ -106,17 +121,36 @@ const Gallery = ({ shareId }: { shareId: string }) => {
           <Title order={3}>{share?.name || share?.id}</Title>
           <Text size="sm">{share?.description}</Text>
         </Box>
+
+        {zipFile && (
+          <Button
+            variant="outline"
+            onClick={() => shareService.downloadFile(shareId, zipFile.id)}
+          >
+            <FormattedMessage id="share.button.download-all" />
+          </Button>
+        )}
       </Group>
 
-      <SimpleGrid cols={4} spacing="sm" breakpoints={[{ maxWidth: "sm", cols: 2 }]}>
-        {share?.files?.map((file: any) => (
-          <Image
+      <SimpleGrid
+        cols={4}
+        spacing="sm"
+        breakpoints={[
+          { maxWidth: "lg", cols: 3 },
+          { maxWidth: "md", cols: 2 },
+          { maxWidth: "sm", cols: 1 },
+        ]}
+      >
+        {images?.map((file: any) => (
+          <a
             key={file.id}
-            src={`/api/shares/${shareId}/files/${file.id}`}
-            alt={file.name}
-            radius="sm"
-            width="100%"
-          />
+            href={`/api/shares/${shareId}/files/${file.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            download={file.name}
+          >
+            <Image src={`/api/shares/${shareId}/files/${file.id}`} alt={file.name} radius="sm" width="100%" />
+          </a>
         ))}
       </SimpleGrid>
     </>
