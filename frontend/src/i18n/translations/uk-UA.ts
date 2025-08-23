@@ -286,6 +286,10 @@ export default {
   "share.button.download": "Download",
   "share.button.download-all": "Завантажити все",
   "share.notify.download-all-preparing": "Завантаження готується. Будь ласка, спробуйте знову через кілька хвилин.",
+  "share.allFiles": "All files",
+  "share.gallery.title": "Gallery",
+  "share.gallery.description":
+    "Here are all the individual jpegs for simple viewing and downloading one at a time! You can also download the entire collection of jpegs or uncompressed tiffs with the links above.",
   "share.modal.file-link": "Посилання на файл",
   "share.table.name": "Назва",
   "share.table.size": "Розмір",

@@ -286,6 +286,10 @@ export default {
   "share.button.download": "Download",
   "share.button.download-all": "تنزيل الكل",
   "share.notify.download-all-preparing": "The share is being prepared. Please try again in a few minutes.",
+  "share.allFiles": "All files",
+  "share.gallery.title": "Gallery",
+  "share.gallery.description":
+    "Here are all the individual jpegs for simple viewing and downloading one at a time! You can also download the entire collection of jpegs or uncompressed tiffs with the links above.",
   "share.modal.file-link": "رابط الملف",
   "share.table.name": "الاسم",
   "share.table.size": "الحجم",

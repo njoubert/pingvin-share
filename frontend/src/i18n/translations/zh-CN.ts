@@ -286,6 +286,10 @@ export default {
   "share.button.download": "Download",
   "share.button.download-all": "全部下载",
   "share.notify.download-all-preparing": "该共享正在处理中，请稍等片刻。",
+  "share.allFiles": "All files",
+  "share.gallery.title": "Gallery",
+  "share.gallery.description":
+    "Here are all the individual jpegs for simple viewing and downloading one at a time! You can also download the entire collection of jpegs or uncompressed tiffs with the links above.",
   "share.modal.file-link": "文件链接",
   "share.table.name": "文件名",
   "share.table.size": "文件大小",
