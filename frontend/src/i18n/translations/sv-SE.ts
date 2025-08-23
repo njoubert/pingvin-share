@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Förfallodatum överskrider maximalt av {max}.",
   "upload.modal.link.label": "Länk",
   "upload.modal.expires.label": "Förfaller",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Minut",
   "upload.modal.expires.minute-plural": "Minuter",
   "upload.modal.expires.hour-singular": "Timme",

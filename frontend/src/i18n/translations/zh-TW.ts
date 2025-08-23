@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "過期時間最大限制為 {max}",
   "upload.modal.link.label": "分享連結",
   "upload.modal.expires.label": "過期時間",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "分鐘",
   "upload.modal.expires.minute-plural": "分鐘",
   "upload.modal.expires.hour-singular": "小時",

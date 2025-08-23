@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Термін дії перевищує ліміт по {max}.",
   "upload.modal.link.label": "Посилання",
   "upload.modal.expires.label": "Закінчується",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Хвилина",
   "upload.modal.expires.minute-plural": "Хвилин(и)",
   "upload.modal.expires.hour-singular": "Година",

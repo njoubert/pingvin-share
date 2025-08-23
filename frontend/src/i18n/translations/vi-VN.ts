@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Expiration date exceeds the maximum of {max}.",
   "upload.modal.link.label": "Liên kết",
   "upload.modal.expires.label": "Thời hạn",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Phút",
   "upload.modal.expires.minute-plural": "Phút",
   "upload.modal.expires.hour-singular": "Giờ",

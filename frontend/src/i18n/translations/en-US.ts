@@ -325,6 +325,7 @@ export default {
 
   "upload.modal.link.label": "Link",
   "upload.modal.expires.label": "Expiration",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Minute",
   "upload.modal.expires.minute-plural": "Minutes",
   "upload.modal.expires.hour-singular": "Hour",

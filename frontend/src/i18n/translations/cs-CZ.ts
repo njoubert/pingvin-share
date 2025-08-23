@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Datum vypršení platnosti překračuje maximum {max}.",
   "upload.modal.link.label": "Odkaz",
   "upload.modal.expires.label": "Expirace",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Minuta",
   "upload.modal.expires.minute-plural": "Minut",
   "upload.modal.expires.hour-singular": "Hodina",

@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Viimeinen voimassaolopäivä ylittää enimmäisarvon {max}.",
   "upload.modal.link.label": "Linkki",
   "upload.modal.expires.label": "Vanhentuminen",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Minuutti",
   "upload.modal.expires.minute-plural": "Minuuttia",
   "upload.modal.expires.hour-singular": "Tunti",

@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "有効期限が最大値{max}を超えています。",
   "upload.modal.link.label": "リンク",
   "upload.modal.expires.label": "有効期限",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "分間",
   "upload.modal.expires.minute-plural": "分間",
   "upload.modal.expires.hour-singular": "時間",

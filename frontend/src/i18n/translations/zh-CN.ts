@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "有效期超过 {max} 的最大值。",
   "upload.modal.link.label": "共享链接",
   "upload.modal.expires.label": "过期时间",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "1 分钟",
   "upload.modal.expires.minute-plural": "分钟",
   "upload.modal.expires.hour-singular": "1 小时",

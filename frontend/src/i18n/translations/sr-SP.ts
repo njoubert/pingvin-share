@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Датум истека превазилази максималну вредност од {max}.",
   "upload.modal.link.label": "Линк",
   "upload.modal.expires.label": "Истиче",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Минут",
   "upload.modal.expires.minute-plural": "Минуте",
   "upload.modal.expires.hour-singular": "Сат",

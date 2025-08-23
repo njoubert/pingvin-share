@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Expiration date exceeds the maximum of {max}.",
   "upload.modal.link.label": "Σύνδεσμος",
   "upload.modal.expires.label": "Λήξη",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Λεπτό",
   "upload.modal.expires.minute-plural": "Λεπτά",
   "upload.modal.expires.hour-singular": "Ώρα",

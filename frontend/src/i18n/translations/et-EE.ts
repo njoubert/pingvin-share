@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Aegumiskuupäev ületab lubatud maksimaalset {max}.",
   "upload.modal.link.label": "Link",
   "upload.modal.expires.label": "Aegumisaeg",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Minut",
   "upload.modal.expires.minute-plural": "Minutit",
   "upload.modal.expires.hour-singular": "Tund",

@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Geçerlilik süresi maksimum {max} değerini aşıyor.",
   "upload.modal.link.label": "Bağlantı",
   "upload.modal.expires.label": "Geçerlilik Süresi",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Dakika",
   "upload.modal.expires.minute-plural": "Dakika",
   "upload.modal.expires.hour-singular": "Saat",

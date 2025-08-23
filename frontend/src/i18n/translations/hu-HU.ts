@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Expiration date exceeds the maximum of {max}.",
   "upload.modal.link.label": "Hivatkozás",
   "upload.modal.expires.label": "Lejárat",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "perc",
   "upload.modal.expires.minute-plural": "perc",
   "upload.modal.expires.hour-singular": "óra",

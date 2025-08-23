@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Expiration date exceeds the maximum of {max}.",
   "upload.modal.link.label": "링크",
   "upload.modal.expires.label": "만료일",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "분",
   "upload.modal.expires.minute-plural": "분",
   "upload.modal.expires.hour-singular": "시",

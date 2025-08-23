@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Datum isteka prevazilazi maksimalnu vrednost od {max}.",
   "upload.modal.link.label": "Link",
   "upload.modal.expires.label": "Ističe",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Minut",
   "upload.modal.expires.minute-plural": "Minute",
   "upload.modal.expires.hour-singular": "Sat",

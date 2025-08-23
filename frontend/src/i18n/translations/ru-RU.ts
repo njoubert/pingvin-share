@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Срок действия превышает максимальный предел {max}.",
   "upload.modal.link.label": "Ссылка",
   "upload.modal.expires.label": "Истекает",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Минута",
   "upload.modal.expires.minute-plural": "Минут(ы)",
   "upload.modal.expires.hour-singular": "Час",

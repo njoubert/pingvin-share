@@ -238,6 +238,7 @@ export default {
   "upload.modal.expires.error.too-long": "Das Ablaufdatum überschreitet das Maximum von {max}.",
   "upload.modal.link.label": "Link",
   "upload.modal.expires.label": "Gültig bis",
+  "upload.modal.gallery": "Gallery",
   "upload.modal.expires.minute-singular": "Minute",
   "upload.modal.expires.minute-plural": "Minuten",
   "upload.modal.expires.hour-singular": "Stunde",
