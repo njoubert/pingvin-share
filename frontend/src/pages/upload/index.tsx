@@ -51,6 +51,7 @@ const Upload = ({
 
   maxShareSize ??= parseInt(config.get("share.maxSize"));
   const autoOpenCreateUploadModal = config.get("share.autoOpenShareModal");
+  const galleryEnabledByDefault = config.get("gallery.enableByDefault");
 
   const uploadFiles = async (share: CreateShare, files: FileUpload[]) => {
     setisUploading(true);
@@ -145,6 +146,7 @@ const Upload = ({
         maxExpiration: config.get("share.maxExpiration"),
         shareIdLength: config.get("share.shareIdLength"),
         simplified,
+        galleryEnabledByDefault,
       },
       files,
       uploadFiles,

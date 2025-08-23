@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "Must be at most {max}",
   "common.error.exact-length": "Bằng {length} kí tự",
   "common.error.invalid-number": "Phải là số",
-  "common.error.field-required": "Trường bắt buộc"
+  "common.error.field-required": "Trường bắt buộc",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };

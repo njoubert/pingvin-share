@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "Must be at most {max}",
   "common.error.exact-length": "Moet precies {length} tekens bevatten",
   "common.error.invalid-number": "Moet een getal zijn",
-  "common.error.field-required": "Dit veld is verplicht"
+  "common.error.field-required": "Dit veld is verplicht",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };

@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "Peab olema maksimaalselt {max}",
   "common.error.exact-length": "Peab olema täpselt {length} tähemärki",
   "common.error.invalid-number": "Peab olema number",
-  "common.error.field-required": "See väli on kohustuslik"
+  "common.error.field-required": "See väli on kohustuslik",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };

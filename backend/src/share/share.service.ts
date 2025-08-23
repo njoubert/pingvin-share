@@ -73,6 +73,10 @@ export class ShareService {
       expirationDate = parsedExpiration;
     }
 
+    if (share.isGallery === undefined) {
+      share.isGallery = this.config.get("gallery.enableByDefault");
+    }
+
     fs.mkdirSync(`${SHARE_DIRECTORY}/${share.id}`, {
       recursive: true,
     });
