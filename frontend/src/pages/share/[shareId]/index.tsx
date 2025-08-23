@@ -116,8 +116,7 @@ const Share = ({ shareId }: { shareId: string }) => {
   const gallerySections = useMemo(() => {
     const images = files.filter(
       (f: any) =>
-        f.name.includes("/") &&
-        (mime.lookup(f.name) || "").startsWith("image/"),
+        f.name.includes("/") && mime.lookup(f.name) === "image/jpeg",
     );
     const zipMap = new Map<string, any[]>();
     for (const img of images) {
@@ -127,7 +126,8 @@ const Share = ({ shareId }: { shareId: string }) => {
       zipMap.get(zipName)!.push({ ...img, relative });
     }
 
-    const result: { zip: any; sections: { path: string; files: any[] }[] }[] = [];
+    const result: { zip: any; sections: { path: string; files: any[] }[] }[] =
+      [];
     const zips = rootFiles.filter((f: any) => f.name.endsWith(".zip"));
 
     for (const zip of zips) {
@@ -150,7 +150,8 @@ const Share = ({ shareId }: { shareId: string }) => {
 
       const sections: { path: string; files: any[] }[] = [];
       const traverse = (node: Node, prefix: string) => {
-        if (node.files.length) sections.push({ path: prefix, files: node.files });
+        if (node.files.length)
+          sections.push({ path: prefix, files: node.files });
         const entries = Object.entries(node.children).sort((a, b) =>
           a[0].localeCompare(b[0]),
         );
@@ -209,66 +210,88 @@ const Share = ({ shareId }: { shareId: string }) => {
         {rootFiles.length > 1 && <DownloadAllButton shareId={shareId} />}
       </Group>
 
-      <FileList
-        files={rootFiles}
-        // Sorting is disabled for gallery shares to preserve image grouping
-        setShare={() => {}}
-        share={
-          share ?? ({ id: shareId, files: rootFiles, hasPassword: false } as any)
-        }
-        isLoading={!share}
-      />
+      {rootFiles.length > 0 && (
+        <>
+          <Title order={2} mb="sm">
+            {t("share.allFiles")}
+          </Title>
+          <FileList
+            files={rootFiles}
+            // Sorting is disabled for gallery shares to preserve image grouping
+            setShare={() => {}}
+            share={
+              share ??
+              ({ id: shareId, files: rootFiles, hasPassword: false } as any)
+            }
+            isLoading={!share}
+          />
+        </>
+      )}
 
-      {gallerySections.map(({ zip, sections }) => (
-        <Box key={zip.id} mt="xl">
-          <Group position="apart" mb="sm">
-            <Title order={3}>{zip.name}</Title>
-            <Button
-              variant="outline"
-              onClick={() => shareService.downloadFile(shareId, zip.id)}
-            >
-              <FormattedMessage id="share.button.download" />
-            </Button>
-          </Group>
+      {gallerySections.length > 0 && (
+        <Box mt="xl">
+          <Title order={2} mb="xs">
+            {t("share.gallery.title")}
+          </Title>
+          <Text size="sm" mb="md">
+            {t("share.gallery.description")}
+          </Text>
 
-          {sections.map((section) => (
-            <Box key={section.path} mb="lg">
-              {section.path && (
-                <Title order={4} mb="sm">
-                  {section.path}
-                </Title>
-              )}
+          {gallerySections.map(({ zip, sections }) => (
+            <Box key={zip.id} mt="xl">
+              <Group position="apart" mb="sm">
+                <Title order={3}>{zip.name}</Title>
+                <Button
+                  variant="outline"
+                  onClick={() => shareService.downloadFile(shareId, zip.id)}
+                >
+                  <FormattedMessage id="share.button.download" />
+                </Button>
+              </Group>
 
-              <SimpleGrid
-                cols={4}
-                spacing="sm"
-                breakpoints={[
-                  { maxWidth: "lg", cols: 3 },
-                  { maxWidth: "md", cols: 2 },
-                  { maxWidth: "sm", cols: 1 },
-                ]}
-              >
-                {section.files.map((file: any) => (
-                  <a
-                    key={file.id}
-                    href={`/api/shares/${shareId}/files/${file.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    download={file.name}
-                  >
-                    <Image
-                      src={`/api/shares/${shareId}/files/${file.id}`}
-                      alt={file.name}
-                      radius="sm"
-                      width="100%"
-                    />
-                  </a>
-                ))}
-              </SimpleGrid>
+              {sections.map((section) => {
+                const displayPath = section.path;
+                return (
+                  <Box key={section.path} mb="lg">
+                    {displayPath && (
+                      <Title order={4} mb="sm">
+                        {displayPath}
+                      </Title>
+                    )}
+
+                    <SimpleGrid
+                      cols={4}
+                      spacing="sm"
+                      breakpoints={[
+                        { maxWidth: "lg", cols: 3 },
+                        { maxWidth: "md", cols: 2 },
+                        { maxWidth: "sm", cols: 1 },
+                      ]}
+                    >
+                      {section.files.map((file: any) => (
+                        <a
+                          key={file.id}
+                          href={`/api/shares/${shareId}/files/${file.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download={file.name}
+                        >
+                          <Image
+                            src={`/api/shares/${shareId}/files/${file.id}`}
+                            alt={file.name}
+                            radius="sm"
+                            width="100%"
+                          />
+                        </a>
+                      ))}
+                    </SimpleGrid>
+                  </Box>
+                );
+              })}
             </Box>
           ))}
         </Box>
-      ))}
+      )}
     </>
   );
 };

@@ -286,6 +286,10 @@ export default {
   "share.button.download": "Download",
   "share.button.download-all": "Alles herunterladen",
   "share.notify.download-all-preparing": "Die Freigabe wird vorbereitet. Bitte versuche es in ein paar Minuten erneut.",
+  "share.allFiles": "All files",
+  "share.gallery.title": "Gallery",
+  "share.gallery.description":
+    "Here are all the individual jpegs for simple viewing and downloading one at a time! You can also download the entire collection of jpegs or uncompressed tiffs with the links above.",
   "share.modal.file-link": "Dateilink",
   "share.table.name": "Name",
   "share.table.size": "Größe",

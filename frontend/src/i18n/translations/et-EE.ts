@@ -286,6 +286,10 @@ export default {
   "share.button.download": "Download",
   "share.button.download-all": "Laadi kõik alla",
   "share.notify.download-all-preparing": "Jagamist valmistatakse ette. Palun proovi mõne minuti pärast uuesti.",
+  "share.allFiles": "All files",
+  "share.gallery.title": "Gallery",
+  "share.gallery.description":
+    "Here are all the individual jpegs for simple viewing and downloading one at a time! You can also download the entire collection of jpegs or uncompressed tiffs with the links above.",
   "share.modal.file-link": "Faili link",
   "share.table.name": "Nimi",
   "share.table.size": "Suurus",
