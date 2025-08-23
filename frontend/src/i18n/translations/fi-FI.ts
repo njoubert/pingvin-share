@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "Must be at most {max}",
   "common.error.exact-length": "On oltava tarkasti {length} merkkiä pitkä",
   "common.error.invalid-number": "Pitää olla luku",
-  "common.error.field-required": "Tämä kenttä on pakollinen"
+  "common.error.field-required": "Tämä kenttä on pakollinen",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };

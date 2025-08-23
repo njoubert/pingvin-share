@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "Must be at most {max}",
   "common.error.exact-length": "{length} 자 이어야 합니다.",
   "common.error.invalid-number": "숫자만 가능합니다.",
-  "common.error.field-required": "이 필드는 필수입니다"
+  "common.error.field-required": "이 필드는 필수입니다",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };

@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "Должно быть не больше {max}",
   "common.error.exact-length": "Должно быть ровно {length} символов",
   "common.error.invalid-number": "Должно быть числом",
-  "common.error.field-required": "Поле обязательно для заполнения"
+  "common.error.field-required": "Поле обязательно для заполнения",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };

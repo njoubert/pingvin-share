@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "Måste vara som mest {max}",
   "common.error.exact-length": "Måste vara exakt {length} tecken långt",
   "common.error.invalid-number": "Måste vara ett tal",
-  "common.error.field-required": "Obligatoriskt fält"
+  "common.error.field-required": "Obligatoriskt fält",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };

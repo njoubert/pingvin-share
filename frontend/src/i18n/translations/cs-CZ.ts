@@ -542,5 +542,8 @@ export default {
   "common.error.number-too-large": "Musí být nejvýše {max}",
   "common.error.exact-length": "Musí mít přesně {length} znaků",
   "common.error.invalid-number": "Musí být číslo",
-  "common.error.field-required": "Toto pole je povinné"
+  "common.error.field-required": "Toto pole je povinné",
+  "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.enable-by-default": "Enable gallery by default",
+  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
 };
