@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import { GetServerSidePropsContext } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Meta from "../../../components/Meta";
 import showEnterPasswordModal from "../../../components/share/showEnterPasswordModal";
 import showErrorModal from "../../../components/share/showErrorModal";
@@ -109,6 +109,52 @@ const Gallery = ({ shareId }: { shareId: string }) => {
   );
   const zipFile = share?.files?.find((f: any) => f.name.endsWith(".zip"));
 
+  const sections = useMemo(() => {
+    if (!images) return [];
+
+    type Node = { files: any[]; children: Record<string, Node> };
+    const root: Node = { files: [], children: {} };
+
+    for (const file of images) {
+      const parts = file.name.split("/");
+      parts.pop();
+      let node = root;
+      for (const part of parts) {
+        node.children[part] ||= { files: [], children: {} };
+        node = node.children[part];
+      }
+      node.files.push(file);
+    }
+
+    const result: { path: string; files: any[] }[] = [];
+    const traverse = (node: Node, prefix: string) => {
+      if (node.files.length) {
+        result.push({ path: prefix, files: node.files });
+      }
+
+      const entries = Object.entries(node.children).sort((a, b) =>
+        a[0].localeCompare(b[0]),
+      );
+
+      for (let [name, child] of entries) {
+        let path = name;
+        let current = child;
+        while (
+          current.files.length === 0 &&
+          Object.keys(current.children).length === 1
+        ) {
+          const [nextName, next] = Object.entries(current.children)[0];
+          path += `/${nextName}`;
+          current = next;
+        }
+        traverse(current, prefix ? `${prefix}/${path}` : path);
+      }
+    };
+
+    traverse(root, "");
+    return result;
+  }, [images]);
+
   return (
     <>
       <Meta
@@ -132,27 +178,41 @@ const Gallery = ({ shareId }: { shareId: string }) => {
         )}
       </Group>
 
-      <SimpleGrid
-        cols={4}
-        spacing="sm"
-        breakpoints={[
-          { maxWidth: "lg", cols: 3 },
-          { maxWidth: "md", cols: 2 },
-          { maxWidth: "sm", cols: 1 },
-        ]}
-      >
-        {images?.map((file: any) => (
-          <a
-            key={file.id}
-            href={`/api/shares/${shareId}/files/${file.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            download={file.name}
+      {sections.map((section) => (
+        <Box key={section.path} mb="lg">
+          {section.path && (
+            <Title order={4} mb="sm">
+              {section.path}
+            </Title>
+          )}
+          <SimpleGrid
+            cols={4}
+            spacing="sm"
+            breakpoints={[
+              { maxWidth: "lg", cols: 3 },
+              { maxWidth: "md", cols: 2 },
+              { maxWidth: "sm", cols: 1 },
+            ]}
           >
-            <Image src={`/api/shares/${shareId}/files/${file.id}`} alt={file.name} radius="sm" width="100%" />
-          </a>
-        ))}
-      </SimpleGrid>
+            {section.files.map((file: any) => (
+              <a
+                key={file.id}
+                href={`/api/shares/${shareId}/files/${file.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                download={file.name}
+              >
+                <Image
+                  src={`/api/shares/${shareId}/files/${file.id}`}
+                  alt={file.name}
+                  radius="sm"
+                  width="100%"
+                />
+              </a>
+            ))}
+          </SimpleGrid>
+        </Box>
+      ))}
     </>
   );
 };
