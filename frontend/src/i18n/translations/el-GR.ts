@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Please enter the password to access this share.",
   "share.modal.password": "Κωδικός πρόσβασης",
   "share.modal.error.invalid-password": "Μη έγκυρος κωδικός πρόσβασης",
+  "share.button.download": "Download",
   "share.button.download-all": "Λήψη όλων",
   "share.notify.download-all-preparing": "The share is being prepared. Please try again in a few minutes.",
   "share.modal.file-link": "Σύνδεσμος αρχείου",

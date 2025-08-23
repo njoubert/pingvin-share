@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Palun sisesta parool, et sellele jagamisele juurde pääseda.",
   "share.modal.password": "Parool",
   "share.modal.error.invalid-password": "Vigane parool",
+  "share.button.download": "Download",
   "share.button.download-all": "Laadi kõik alla",
   "share.notify.download-all-preparing": "Jagamist valmistatakse ette. Palun proovi mõne minuti pärast uuesti.",
   "share.modal.file-link": "Faili link",

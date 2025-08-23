@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Bu paylaşıma erişmek için lütfen şifreyi girin.",
   "share.modal.password": "Şifre",
   "share.modal.error.invalid-password": "Geçersiz şifre",
+  "share.button.download": "Download",
   "share.button.download-all": "Tümünü indir",
   "share.notify.download-all-preparing": "Paylaşım hazırlanıyor. Lütfen birkaç dakika içinde tekrar deneyin.",
   "share.modal.file-link": "Dosya bağlantısı",

@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Please enter the password to access this share.",
   "share.modal.password": "Лозинка",
   "share.modal.error.invalid-password": "Неисправна лозинка",
+  "share.button.download": "Download",
   "share.button.download-all": "Преузми све",
   "share.notify.download-all-preparing": "Дељење се припрема. Молимо покушајте поново за неколико минута.",
   "share.modal.file-link": "Веза датотеке",

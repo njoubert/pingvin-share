@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Per favore inserisci la password per accedere a questa condivisione.",
   "share.modal.password": "Password",
   "share.modal.error.invalid-password": "Password non valida",
+  "share.button.download": "Download",
   "share.button.download-all": "Scarica tutto",
   "share.notify.download-all-preparing": "La condivisione è in preparazione. Riprova tra qualche minuto.",
   "share.modal.file-link": "Link dei File",

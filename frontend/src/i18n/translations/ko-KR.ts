@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Please enter the password to access this share.",
   "share.modal.password": "비밀번호",
   "share.modal.error.invalid-password": "잘못된 비밀번호",
+  "share.button.download": "Download",
   "share.button.download-all": "모두 다운로드",
   "share.notify.download-all-preparing": "The share is being prepared. Please try again in a few minutes.",
   "share.modal.file-link": "파일 링크",

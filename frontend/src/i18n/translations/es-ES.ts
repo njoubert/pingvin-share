@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Por favor, ingresa la contraseña para acceder a este recurso compartido.",
   "share.modal.password": "Contraseña",
   "share.modal.error.invalid-password": "Contraseña inválida",
+  "share.button.download": "Download",
   "share.button.download-all": "Descargar todo",
   "share.notify.download-all-preparing": "El enlace compartido está en preparación. Por favor, inténtalo de nuevo en unos minutos.",
   "share.modal.file-link": "Enlace del archivo",

@@ -107,12 +107,19 @@ export class ShareService {
     return shareTuple;
   }
 
-  async createZip(shareId: string) {
+  async createZip(shareId: string, includeGalleryImages = true) {
     if (this.config.get("s3.enabled")) return;
 
     const path = `${SHARE_DIRECTORY}/${shareId}`;
 
-    const files = await this.prisma.file.findMany({ where: { shareId } });
+    const files = await this.prisma.file.findMany({
+      where: {
+        shareId,
+        ...(includeGalleryImages
+          ? {}
+          : { NOT: { name: { contains: "/" } } }),
+      },
+    });
     const archive = archiver("zip", {
       zlib: { level: this.config.get("share.zipCompressionLevel") },
     });
@@ -128,41 +135,44 @@ export class ShareService {
     await archive.finalize();
   }
 
-  private async extractGalleryZip(share: Share & { files: PrismaFile[] }) {
-    if (share.files.length === 0) return;
-    const zipFile = share.files[0];
-    const zipPath = `${SHARE_DIRECTORY}/${share.id}/${zipFile.id}`;
-    const extractDir = `${SHARE_DIRECTORY}/${share.id}/__tmp_extract`;
-    fs.mkdirSync(extractDir, { recursive: true });
-    execSync(`unzip -qq ${zipPath} -d ${extractDir}`);
+  private async extractGalleryZips(share: Share & { files: PrismaFile[] }) {
+    const zipFiles = share.files.filter((f) => f.name.endsWith(".zip"));
+    for (const zipFile of zipFiles) {
+      const zipPath = `${SHARE_DIRECTORY}/${share.id}/${zipFile.id}`;
+      const extractDir = `${SHARE_DIRECTORY}/${share.id}/__tmp_extract_${zipFile.id}`;
+      fs.mkdirSync(extractDir, { recursive: true });
+      execSync(`unzip -qq ${zipPath} -d ${extractDir}`);
 
-    const processDir = async (dir: string, rel = "") => {
-      const entries = fs.readdirSync(dir, { withFileTypes: true });
-      for (const entry of entries) {
-        if (entry.name.startsWith("__MACOSX")) continue;
-        const full = `${dir}/${entry.name}`;
-        const relative = rel ? `${rel}/${entry.name}` : entry.name;
-        if (entry.isDirectory()) {
-          await processDir(full, relative);
-        } else {
-          const mimeType = mime.lookup(relative);
-          if (mimeType !== "image/jpeg") continue;
-          const data = fs.readFileSync(full);
-          const newFile = await this.prisma.file.create({
-            data: {
-              name: relative,
-              size: data.length.toString(),
-              shareId: share.id,
-            },
-          });
-          fs.writeFileSync(`${SHARE_DIRECTORY}/${share.id}/${newFile.id}`, data);
+      const processDir = async (dir: string, rel = "") => {
+        const entries = fs.readdirSync(dir, { withFileTypes: true });
+        for (const entry of entries) {
+          if (entry.name.startsWith("__MACOSX")) continue;
+          const full = `${dir}/${entry.name}`;
+          const relative = rel ? `${rel}/${entry.name}` : entry.name;
+          if (entry.isDirectory()) {
+            await processDir(full, relative);
+          } else {
+            const mimeType = mime.lookup(relative);
+            if (mimeType !== "image/jpeg") continue;
+            const data = fs.readFileSync(full);
+            const newFile = await this.prisma.file.create({
+              data: {
+                name: `${zipFile.name}/${relative}`,
+                size: data.length.toString(),
+                shareId: share.id,
+              },
+            });
+            fs.writeFileSync(
+              `${SHARE_DIRECTORY}/${share.id}/${newFile.id}`,
+              data,
+            );
+          }
         }
-      }
-    };
+      };
 
-    await processDir(extractDir);
-    fs.rmSync(extractDir, { recursive: true, force: true });
-    fs.linkSync(zipPath, `${SHARE_DIRECTORY}/${share.id}/archive.zip`);
+      await processDir(extractDir);
+      fs.rmSync(extractDir, { recursive: true, force: true });
+    }
   }
 
   async complete(id: string, reverseShareToken?: string) {
@@ -185,21 +195,15 @@ export class ShareService {
       );
 
     if (share.isGallery) {
-      await this.extractGalleryZip(share);
+      await this.extractGalleryZips(share);
     }
 
-    const filesAfterExtract = await this.prisma.file.count({
-      where: { shareId: id },
+    const originalFilesCount = await this.prisma.file.count({
+      where: { shareId: id, NOT: { name: { contains: "/" } } },
     });
 
-    if (share.isGallery) {
-      await this.prisma.share.update({
-        where: { id },
-        data: { isZipReady: true },
-      });
-    } else if (filesAfterExtract > 1) {
-      // Asynchronously create a zip of all files
-      this.createZip(id).then(() =>
+    if (originalFilesCount > 1) {
+      this.createZip(id, false).then(() =>
         this.prisma.share.update({ where: { id }, data: { isZipReady: true } }),
       );
     }

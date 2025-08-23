@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Please enter the password to access this share.",
   "share.modal.password": "รหัสผ่าน",
   "share.modal.error.invalid-password": "รหัสผ่านไม่ถูกต้อง",
+  "share.button.download": "Download",
   "share.button.download-all": "ดาวน์โหลดทั้งหมด",
   "share.notify.download-all-preparing": "The share is being prepared. Please try again in a few minutes.",
   "share.modal.file-link": "ลิงค์ไฟล์",

@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "請輸入密碼取得此分享。",
   "share.modal.password": "密碼",
   "share.modal.error.invalid-password": "密碼錯誤",
+  "share.button.download": "Download",
   "share.button.download-all": "全部下載",
   "share.notify.download-all-preparing": "正在處理中，請稍等片刻",
   "share.modal.file-link": "檔案連結",

@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Zadejte prosím heslo pro přístup k tomuto sdíleni.",
   "share.modal.password": "Heslo",
   "share.modal.error.invalid-password": "Neplatné heslo",
+  "share.button.download": "Download",
   "share.button.download-all": "Stáhnout vše",
   "share.notify.download-all-preparing": "Sdílení se připravuje. Zkuste to prosím znovu za několik minut.",
   "share.modal.file-link": "Odkaz na soubor",

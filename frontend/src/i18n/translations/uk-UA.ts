@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Будь ласка, введіть пароль для доступу до цього завантаження.",
   "share.modal.password": "Пароль",
   "share.modal.error.invalid-password": "Невірний пароль",
+  "share.button.download": "Download",
   "share.button.download-all": "Завантажити все",
   "share.notify.download-all-preparing": "Завантаження готується. Будь ласка, спробуйте знову через кілька хвилин.",
   "share.modal.file-link": "Посилання на файл",

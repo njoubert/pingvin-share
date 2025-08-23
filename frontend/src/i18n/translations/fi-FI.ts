@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Please enter the password to access this share.",
   "share.modal.password": "Salasana",
   "share.modal.error.invalid-password": "Virheellinen salasana",
+  "share.button.download": "Download",
   "share.button.download-all": "Lataa kaikki",
   "share.notify.download-all-preparing": "Jako on valmistumassa. Yritä uudelleen muutaman minuutin kuluttua.",
   "share.modal.file-link": "Tiedoston linkki",

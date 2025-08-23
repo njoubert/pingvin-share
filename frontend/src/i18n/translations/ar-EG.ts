@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Please enter the password to access this share.",
   "share.modal.password": "كلمة السر",
   "share.modal.error.invalid-password": "كلمة السر غير صحيحة",
+  "share.button.download": "Download",
   "share.button.download-all": "تنزيل الكل",
   "share.notify.download-all-preparing": "The share is being prepared. Please try again in a few minutes.",
   "share.modal.file-link": "رابط الملف",

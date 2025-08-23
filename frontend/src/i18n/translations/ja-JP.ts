@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "この共有にアクセスするにはパスワードを入力してください。",
   "share.modal.password": "パスワード",
   "share.modal.error.invalid-password": "パスワードが間違っています",
+  "share.button.download": "Download",
   "share.button.download-all": "全てダウンロード",
   "share.notify.download-all-preparing": "共有の準備中です。数分後にもう一度お試しください。",
   "share.modal.file-link": "ファイルリンク",

@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Пожалуйста, введите пароль для доступа к этому ресурсу.",
   "share.modal.password": "Пароль",
   "share.modal.error.invalid-password": "Неверный пароль",
+  "share.button.download": "Download",
   "share.button.download-all": "Скачать все",
   "share.notify.download-all-preparing": "Загрузка готовится. Повторите попытку через несколько минут.",
   "share.modal.file-link": "Ссылка на файл",

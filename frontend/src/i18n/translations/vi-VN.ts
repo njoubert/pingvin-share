@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Please enter the password to access this share.",
   "share.modal.password": "Mật khẩu",
   "share.modal.error.invalid-password": "Mật khẩu không hợp lệ",
+  "share.button.download": "Download",
   "share.button.download-all": "Tải xuống tất cả",
   "share.notify.download-all-preparing": "The share is being prepared. Please try again in a few minutes.",
   "share.modal.file-link": "File link",

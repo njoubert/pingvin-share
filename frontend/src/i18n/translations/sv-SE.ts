@@ -283,6 +283,7 @@ export default {
   "share.modal.password.description": "Ange lösenordet för att komma åt denna delning.",
   "share.modal.password": "Lösenord",
   "share.modal.error.invalid-password": "Ogiltigt lösenord",
+  "share.button.download": "Download",
   "share.button.download-all": "Ladda ner allt",
   "share.notify.download-all-preparing": "Delningen förbereds. Försök igen om några minuter.",
   "share.modal.file-link": "Fillänk",
