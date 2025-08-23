@@ -14,7 +14,7 @@ export default {
   // END navbar
 
   // /
-  "home.title": "A <h>self-hosted</h> file sharing platform.",
+  "home.title": "A <h>Niels-hosted</h> file sharing platform.",
 
   "home.description":
     "Do you really want to give your personal files in the hand of third parties like WeTransfer?",
