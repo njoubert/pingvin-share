@@ -7,6 +7,19 @@
 - Automatically enabling gallery view checkbox based on regex
 - Configurability of automatic-enabling in Settings pane
 
+### Checkboxes to Enable Gallery View for Zip Files
+
+![Per-Zip-File-Gallery-Checkboxes](image-per-zip-file-gallery-checkboxes.png)
+
+### Gallery Settings
+
+![image-gallery-settings.png](image-gallery-settings.png)
+
+### Gallery View 
+
+![image-gallery-view-of-jpegs-in-zip-files](image-gallery-view-of-jpegs-in-zip-files.png)
+
+
 # Original Pingvin-Share
 
 
