@@ -34,6 +34,7 @@ export class FileService {
     file: {
       id?: string;
       name: string;
+      isGallery?: boolean;
     },
     shareId: string,
   ) {

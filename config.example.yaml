@@ -30,8 +30,8 @@ share:
   #The share creation modal automatically appears when a user selects files, eliminating the need to manually click the button.
   autoOpenShareModal: "false"
 gallery:
-  #Whether new shares are created with gallery enabled by default
-  enableByDefault: "true"
+  # Regex (case-insensitive) for ZIP filenames that should enable gallery by default
+  filenameRegex: "jpegs?\\.zip$"
 cache:
   #Normally Pingvin Share caches information in memory. If you run multiple instances of Pingvin Share, you need to enable Redis caching to share the cache between the instances.
   redis-enabled: "false"

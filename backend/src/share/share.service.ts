@@ -73,10 +73,6 @@ export class ShareService {
       expirationDate = parsedExpiration;
     }
 
-    if (share.isGallery === undefined) {
-      share.isGallery = this.config.get("gallery.enableByDefault");
-    }
-
     fs.mkdirSync(`${SHARE_DIRECTORY}/${share.id}`, {
       recursive: true,
     });
@@ -140,7 +136,9 @@ export class ShareService {
   }
 
   private async extractGalleryZips(share: Share & { files: PrismaFile[] }) {
-    const zipFiles = share.files.filter((f) => f.name.endsWith(".zip"));
+    const zipFiles = share.files.filter(
+      (f) => f.name.endsWith(".zip") && f.isGallery,
+    );
     for (const zipFile of zipFiles) {
       const zipPath = `${SHARE_DIRECTORY}/${share.id}/${zipFile.id}`;
       const extractDir = `${SHARE_DIRECTORY}/${share.id}/__tmp_extract_${zipFile.id}`;
@@ -198,7 +196,9 @@ export class ShareService {
         "You need at least on file in your share to complete it.",
       );
 
-    if (share.isGallery) {
+    if (
+      share.files.some((f) => f.isGallery && f.name.endsWith(".zip"))
+    ) {
       await this.extractGalleryZips(share);
     }
 

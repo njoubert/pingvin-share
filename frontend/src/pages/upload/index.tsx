@@ -51,7 +51,8 @@ const Upload = ({
 
   maxShareSize ??= parseInt(config.get("share.maxSize"));
   const autoOpenCreateUploadModal = config.get("share.autoOpenShareModal");
-  const galleryEnabledByDefault = config.get("gallery.enableByDefault");
+  const galleryFilenameRegex = config.get("gallery.filenameRegex");
+  const galleryRegex = new RegExp(galleryFilenameRegex, "i");
 
   const uploadFiles = async (share: CreateShare, files: FileUpload[]) => {
     setisUploading(true);
@@ -100,6 +101,7 @@ const Upload = ({
                 {
                   id: fileId,
                   name: file.name,
+                  isGallery: file.isGallery,
                 },
                 chunkIndex,
                 chunks,
@@ -146,7 +148,6 @@ const Upload = ({
         maxExpiration: config.get("share.maxExpiration"),
         shareIdLength: config.get("share.shareIdLength"),
         simplified,
-        galleryEnabledByDefault,
       },
       files,
       uploadFiles,
@@ -154,6 +155,12 @@ const Upload = ({
   };
 
   const handleDropzoneFilesChanged = (files: FileUpload[]) => {
+    files = files.map((file) => {
+      if (file.name.endsWith(".zip")) {
+        file.isGallery = galleryRegex.test(file.name);
+      }
+      return file;
+    });
     if (autoOpenCreateUploadModal) {
       setFiles(files);
       showCreateUploadModalCallback(files);

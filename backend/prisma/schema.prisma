@@ -96,7 +96,6 @@ model Share {
   recipients ShareRecipient[]
   files      File[]
   storageProvider String @default("LOCAL")
-  isGallery Boolean @default(false)
 }
 
 model ReverseShare {
@@ -134,6 +133,7 @@ model File {
 
   shareId String
   share   Share  @relation(fields: [shareId], references: [id], onDelete: Cascade)
+  isGallery Boolean @default(false)
 }
 
 model ShareSecurity {

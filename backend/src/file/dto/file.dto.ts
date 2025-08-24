@@ -11,6 +11,9 @@ export class FileDTO {
   @Expose()
   size: string;
 
+  @Expose()
+  isGallery: boolean;
+
   share: ShareDTO;
 
   from(partial: Partial<FileDTO>) {
