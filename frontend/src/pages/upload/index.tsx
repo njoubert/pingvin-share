@@ -51,6 +51,7 @@ const Upload = ({
 
   maxShareSize ??= parseInt(config.get("share.maxSize"));
   const autoOpenCreateUploadModal = config.get("share.autoOpenShareModal");
+  const galleryAutoEnable = config.get("gallery.autoEnable");
   const galleryFilenameRegex = config.get("gallery.filenameRegex");
   const galleryRegex = new RegExp(galleryFilenameRegex, "i");
 
@@ -157,7 +158,7 @@ const Upload = ({
   const handleDropzoneFilesChanged = (files: FileUpload[]) => {
     files = files.map((file) => {
       if (file.name.endsWith(".zip")) {
-        file.isGallery = galleryRegex.test(file.name);
+        file.isGallery = galleryAutoEnable && galleryRegex.test(file.name);
       }
       return file;
     });
