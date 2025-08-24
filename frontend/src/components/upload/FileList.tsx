@@ -1,4 +1,4 @@
-import { ActionIcon, Table } from "@mantine/core";
+import { ActionIcon, Table, Checkbox } from "@mantine/core";
 import { TbTrash } from "react-icons/tb";
 import { GrUndo } from "react-icons/gr";
 import { FileListItem } from "../../types/File.type";
@@ -10,10 +10,12 @@ const FileListRow = ({
   file,
   onRemove,
   onRestore,
+  onToggleGallery,
 }: {
   file: FileListItem;
   onRemove?: () => void;
   onRestore?: () => void;
+  onToggleGallery?: (checked: boolean) => void;
 }) => {
   {
     const uploadable = "uploadingProgress" in file;
@@ -33,6 +35,14 @@ const FileListRow = ({
       >
         <td>{file.name}</td>
         <td>{byteToHumanSizeString(+file.size)}</td>
+        <td>
+          {uploadable && file.name.endsWith(".zip") && (
+            <Checkbox
+              checked={!!file.isGallery}
+              onChange={(e) => onToggleGallery?.(e.currentTarget.checked)}
+            />
+          )}
+        </td>
         <td>
           {removable && (
             <ActionIcon
@@ -94,12 +104,21 @@ const FileList = <T extends FileListItem = FileListItem>({
     setFiles([...files]);
   };
 
+  const toggleGallery = (index: number, value: boolean) => {
+    const file = files[index];
+    if ("uploadingProgress" in file) {
+      file.isGallery = value;
+    }
+    setFiles([...files]);
+  };
+
   const rows = files.map((file, i) => (
     <FileListRow
       key={i}
       file={file}
       onRemove={() => remove(i)}
       onRestore={() => restore(i)}
+      onToggleGallery={(checked) => toggleGallery(i, checked)}
     />
   ));
 
@@ -112,6 +131,9 @@ const FileList = <T extends FileListItem = FileListItem>({
           </th>
           <th>
             <FormattedMessage id="upload.filelist.size" />
+          </th>
+          <th>
+            <FormattedMessage id="upload.modal.gallery" />
           </th>
           <th></th>
         </tr>

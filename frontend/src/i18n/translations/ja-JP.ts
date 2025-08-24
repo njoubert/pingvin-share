@@ -546,6 +546,6 @@ export default {
   "common.error.invalid-number": "数字でなければなりません",
   "common.error.field-required": "これは必須項目です",
   "admin.config.category.gallery": "Gallery",
-  "admin.config.gallery.enable-by-default": "Enable gallery by default",
-  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
+  "admin.config.gallery.filename-regex": "Auto-enable gallery regex",
+  "admin.config.gallery.filename-regex.description": "ZIP filenames matching this regular expression (case-insensitive) will enable gallery by default.",
 };

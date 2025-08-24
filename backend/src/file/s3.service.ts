@@ -47,7 +47,7 @@ export class S3FileService {
   async create(
     data: string,
     chunk: { index: number; total: number },
-    file: { id?: string; name: string },
+    file: { id?: string; name: string; isGallery?: boolean },
     shareId: string,
   ) {
     if (!file.id) {
@@ -158,6 +158,7 @@ export class S3FileService {
           id: file.id,
           name: file.name,
           size: fileSize.toString(),
+          isGallery: file.isGallery ?? false,
           share: { connect: { id: shareId } },
         },
       });

@@ -90,6 +90,7 @@ const uploadFile = async (
   file: {
     id?: string;
     name: string;
+    isGallery?: boolean;
   },
   chunkIndex: number,
   totalChunks: number,
@@ -102,6 +103,7 @@ const uploadFile = async (
         name: file.name,
         chunkIndex,
         totalChunks,
+        isGallery: file.isGallery,
       },
     })
   ).data;

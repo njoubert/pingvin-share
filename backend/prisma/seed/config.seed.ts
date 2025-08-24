@@ -77,9 +77,9 @@ export const configVariables = {
     },
   },
   gallery: {
-    enableByDefault: {
-      type: "boolean",
-      defaultValue: "true",
+    filenameRegex: {
+      type: "string",
+      defaultValue: "jpegs?\\.zip$",
       secret: false,
     },
   },

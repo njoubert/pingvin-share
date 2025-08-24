@@ -1,15 +1,21 @@
 import User from "./user.type";
 
+export type ShareFile = {
+  id: string;
+  name: string;
+  size: string;
+  isGallery?: boolean;
+};
+
 export type Share = {
   id: string;
   name?: string;
-  files: any;
+  files: ShareFile[];
   creator?: User;
   description?: string;
   expiration: Date;
   size: number;
   hasPassword: boolean;
-  isGallery: boolean;
 };
 
 export type CompletedShare = Share & {
@@ -28,7 +34,6 @@ export type CreateShare = {
   recipients: string[];
   expiration: string;
   security: ShareSecurity;
-  isGallery?: boolean;
 };
 
 export type ShareMetaData = {

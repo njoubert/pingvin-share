@@ -33,17 +33,18 @@ export class FileController {
       name: string;
       chunkIndex: string;
       totalChunks: string;
+      isGallery?: string;
     },
     @Body() body: string,
     @Param("shareId") shareId: string,
   ) {
-    const { id, name, chunkIndex, totalChunks } = query;
+    const { id, name, chunkIndex, totalChunks, isGallery } = query;
 
     // Data can be empty if the file is empty
     return await this.fileService.create(
       body,
       { index: parseInt(chunkIndex), total: parseInt(totalChunks) },
-      { id, name },
+      { id, name, isGallery: isGallery === "true" },
       shareId,
     );
   }

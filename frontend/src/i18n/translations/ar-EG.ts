@@ -546,6 +546,6 @@ export default {
   "common.error.invalid-number": "يجب أن يكون رقماً",
   "common.error.field-required": "هذا الحقل مطلوب",
   "admin.config.category.gallery": "Gallery",
-  "admin.config.gallery.enable-by-default": "Enable gallery by default",
-  "admin.config.gallery.enable-by-default.description": "New shares will have the gallery option enabled by default.",
+  "admin.config.gallery.filename-regex": "Auto-enable gallery regex",
+  "admin.config.gallery.filename-regex.description": "ZIP filenames matching this regular expression (case-insensitive) will enable gallery by default.",
 };
