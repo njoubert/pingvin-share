@@ -77,6 +77,11 @@ export const configVariables = {
     },
   },
   gallery: {
+    autoEnable: {
+      type: "boolean",
+      defaultValue: "true",
+      secret: false,
+    },
     filenameRegex: {
       type: "string",
       defaultValue: "jpegs?\\.zip$",

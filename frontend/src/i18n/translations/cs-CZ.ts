@@ -546,6 +546,8 @@ export default {
   "common.error.invalid-number": "Musí být číslo",
   "common.error.field-required": "Toto pole je povinné",
   "admin.config.category.gallery": "Gallery",
+  "admin.config.gallery.auto-enable": "Auto-enable gallery based on regex",
+  "admin.config.gallery.auto-enable.description": "Automatically enable gallery view for ZIP files whose filenames match the regex.",
   "admin.config.gallery.filename-regex": "Auto-enable gallery regex",
   "admin.config.gallery.filename-regex.description": "ZIP filenames matching this regular expression (case-insensitive) will enable gallery by default.",
 };
