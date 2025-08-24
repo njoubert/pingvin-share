@@ -1,3 +1,15 @@
+# Niels.Shoots.Film Extentions to Pingvin-Share
+
+## ✨ Gallery View for Jpegs in Zip Files
+- Jpegs are extracted from zip-file uploads and presented in a gallery view below the usual list of share files
+- Checkbox to enable gallery view per file uploaded
+- Individual jpegs can be downloaded and shared with the per-image share icon
+- Automatically enabling gallery view checkbox based on regex
+- Configurability of automatic-enabling in Settings pane
+
+# Original Pingvin-Share
+
+
 > ## ⚠️ Project Archived
 >
 > After much consideration, I've chosen to focus my limited time and energy on my other project, [Pocket ID](https://github.com/pocket-id/pocket-id). As a solo developer, I've found it difficult to actively maintain multiple open source projects with the care and attention they deserve.
