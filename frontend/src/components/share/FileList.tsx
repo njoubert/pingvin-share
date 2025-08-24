@@ -99,13 +99,20 @@ const FileList = ({
     }
 
     try {
-      const response = await fetch(url);
-      const blob = await response.blob();
-      const mimeType =
-        blob.type || (mime.contentType(file.name) as string) || "";
-      await navigator.share({
-        files: [new File([blob], file.name, { type: mimeType })],
-      });
+      if (
+        navigator.canShare &&
+        navigator.canShare({ files: [new File([], file.name)] })
+      ) {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const mimeType =
+          blob.type || (mime.contentType(file.name) as string) || "";
+        await navigator.share({
+          files: [new File([blob], file.name, { type: mimeType })],
+        });
+      } else {
+        await navigator.share({ url });
+      }
     } catch {
       await shareService.downloadFile(share.id, file.id);
     }
